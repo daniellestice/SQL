@@ -1,0 +1,82 @@
+/* Create a database with singers' personal information. */
+CREATE TABLE singers (id INTEGER PRIMARY KEY, name TEXT, age INTEGER, homeland TEXT);
+
+INSERT INTO singers (id, name, age, homeland) VALUES  (1, "Harry Styles", 28, "England");
+INSERT INTO singers (id, name, age, homeland) VALUES (2, "Louis Tomlinson", 30, "England");
+INSERT INTO singers (id, name, age, homeland) VALUES (3, "Niall Horan", 29, "Ireland");
+INSERT INTO singers (id, name, age, homeland) VALUES (4, "Zayn Malik", 29, "England");
+INSERT INTO singers (id, name, age, homeland) VALUES (5, "Liam Payne", 29, "England"); 
+INSERT INTO singers (id, name, age, homeland) VALUES (6, "Taylor Swift", 32, "America");
+INSERT INTO singers (id, name, age, homeland) VALUES (7, "Adam Met", 32, "America");
+INSERT INTO singers (id, name, age, homeland) VALUES (8, "Ryan Met", 28, "America");
+INSERT INTO singers (id, name, age, homeland) VALUES (9, "Jack Met", 25, "America");
+INSERT INTO singers (id, name, age, homeland) VALUES (10, "Kevin Jonas", 35, "America");
+INSERT INTO singers (id, name, age, homeland) VALUES (11, "Joe Jonas", 33, "America");
+INSERT INTO singers (id, name, age, homeland) VALUES (12, "Nick Jonas", 30, "America");
+
+/* Create a database with the bands the singers are in. */
+CREATE TABLE bands (id INTEGER PRIMARY KEY, band TEXT, member TEXT);
+
+INSERT INTO bands (id, band, member) VALUES (1, "One Direction", "Harry Styles");
+INSERT INTO bands (id, band, member) VALUES (2, "One Direction", "Niall Horan");
+INSERT INTO bands (id, band, member) VALUES (3, "One Direction",
+"Louis Tomlinson");
+INSERT INTO bands (id, band, member) VALUES (4, "One Direction", "Zayn Malik");
+INSERT INTO bands (id, band, member) VALUES (5, "One Direction", "Liam Payne");
+INSERT INTO bands (id, band, member) VALUES (6, "AJR", "Adam Met");
+INSERT INTO bands (id, band, member) VALUES (7, "AJR", "Jack Met");
+INSERT INTO bands (id, band, member) VALUES (8, "AJR", "Ryan Met");
+INSERT INTO bands (id, band, member) VALUES (9, "Jonas Brothers", "Kevin Jonas");
+INSERT INTO bands (id, band, member) VALUES (10, "Jonas Brothers",
+"Joe Jonas");
+INSERT INTO bands (id, band, member) VALUES (11, "Jonas Brothers", "Nick Jonas");
+INSERT INTO bands (id, band, member) VALUES (12, "Taylor Swift", "Taylor Swift");
+
+/* Create a database with example songs performed by the bands. */
+CREATE TABLE songs (id INTEGER PRIMARY KEY, title TEXT, artist TEXT, singers TEXT);
+
+INSERT INTO songs (id, title, artist, singers) VALUES (1, "Night Changes", "One Direction", "Harry Styles, Louis Tomlinson, Niall Horan, Zayn Malik, Liam Payne");
+INSERT INTO songs (id, title, artist, singers) VALUES (2, "What Makes You Beautiful", "One Direction", "Harry Styles, Louis Tomlinson, Niall Horan, Zayn Malik, Liam Payne");
+INSERT INTO songs (id, title, artist, singers) VALUES (3, "One Thing", "One Direction", "Harry Styles, Louis Tomlinson, Niall Horan, Zayn Malik, Liam Payne");
+INSERT INTO songs (id, title, artist, singers) VALUES (4, "As It Was", "Harry Styles", "Harry Styles");
+INSERT INTO songs (id, title, artist, singers) VALUES (5, "Music For a Sushi Restaurant", "Harry Styles", "Harry Styles");
+INSERT INTO songs (id, title, artist, singers) VALUES (6, "Walls", "Louis Tomlinson", "Louis Tomlinson");
+INSERT INTO songs (id, title, artist, singers) VALUES (7, "Heartbreak Weather", "Niall Horan", "Niall Horan");
+INSERT INTO songs (id, title, artist, singers) VALUES (8, "Black and White", "Niall Horan", "Niall Horan");
+INSERT INTO songs (id, title, artist, singers) VALUES (9, "Pillow Talk", "Zayn Malik", "Zayn Malik");
+INSERT INTO songs (id, title, artist, singers) VALUES (10, "Strip That Down", "Liam Payne", "Liam Payne");
+INSERT INTO songs (id, title, artist, singers) VALUES (11, "Lavender Haze", "Taylor Swift", "Taylor Swift");
+INSERT INTO songs (id, title, artist, singers) VALUES (12, "ME!", "Taylor Swift", "Taylor Swift");
+INSERT INTO songs (id, title, artist, singers) VALUES (13, "Cardigan", "Taylor Swift", "Taylor Swift");
+INSERT INTO songs (id, title, artist, singers) VALUES (14, "Bang!", "AJR", "Adam Met, Jack Met, Ryan Met");
+INSERT INTO songs (id, title, artist, singers) VALUES (15, "Way Less Sad", "AJR", "Adam Met, Jack Met, Ryan Met");
+INSERT INTO songs (id, title, artist, singers) VALUES (16, "Dear Winter", "AJR", "Adam Met, Jack Met, Ryan Met");
+INSERT INTO songs (id, title, artist, singers) VALUES (17, "I Won't", "AJR", "Adam Met, Jack Met, Ryan Met");
+INSERT INTO songs (id, title, artist, singers) VALUES (18, "Burnin' Up", "Jonas Brothers", "Kevin Jonas, Joe Jonas, Nick Jonas");
+INSERT INTO songs (id, title, artist, singers) VALUES (19, "Cool", "Jonas Brothers", "Kevin Jonas, Joe Jonas, Nick Jonas");
+INSERT INTO songs (id, title, artist, singers) VALUES (20, "Jersey", "Jonas Brothers", "Kevin Jonas, Joe Jonas, Nick Jonas");
+
+/* Display the information from each table. */
+SELECT * FROM singers;
+SELECT * FROM bands;
+SELECT * FROM songs;
+
+/* Find the average age of each band from youngest to oldest. */
+SELECT ROUND(AVG(singers.age)) AS Avg_Age, bands.band
+    FROM singers
+    LEFT OUTER JOIN bands ON singers.name = bands.member
+    GROUP BY bands.band
+    ORDER BY Avg_Age;
+    
+/* Display the country where each band member is from. */
+SELECT singers.homeland, bands.member
+    FROM singers
+    LEFT OUTER JOIN bands ON singers.name = bands.member;
+    
+/*Display the country the band is from, the band name, and the example songs from each band. */
+SELECT singers.homeland, bands.band, songs.title
+    FROM singers
+    LEFT OUTER JOIN bands ON singers.name = bands.member
+    LEFT OUTER JOIN songs ON bands.band = songs.artist
+    GROUP BY songs.title
+    ORDER BY bands.band;
