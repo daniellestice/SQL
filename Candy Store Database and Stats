@@ -1,0 +1,36 @@
+/* Create a Candy Store Database */
+CREATE TABLE candy (id INTEGER PRIMARY KEY, name TEXT, cost NUMERIC, category TEXT, rating INTEGER);
+
+INSERT INTO candy VALUES (1, "Reeses", 2.99, "chocolate", 9);
+INSERT INTO candy VALUES (2, "M&Ms", 2.50, "chocolate", 6);
+INSERT INTO candy VALUES (3, "Smarties", 0.99, "fruit", 10);
+INSERT INTO candy VALUES (4, "candy corn", 1.50, "holiday", 0);
+INSERT INTO candy VALUES (5, "Twizzlers", 5, "fruit", 3);
+INSERT INTO candy VALUES (6, "Milk Duds", 0.75, "chocolate", 5);
+INSERT INTO candy VALUES (7, "Whopper", 1, "chocolate", 7);
+INSERT INTO candy VALUES (8, "Sour Skittles", 5, "fruit", 4);
+INSERT INTO candy VALUES (9, "Starburst", 2.50, "fruit", 4);
+INSERT INTO candy VALUES (10, "Take Five", 2, "chocolate", 10);
+INSERT INTO candy VALUES (11, "Nerds", 0.50, "fruit", 5);
+INSERT INTO candy VALUES (12, "Jolly Rancher", 0.25, "fruit", 3);
+INSERT INTO candy VALUES (13, "Kit Kat", 1, "chocolate", 9);
+INSERT INTO candy VALUES (14, "York Peppermint Patty", 2, "chocolate", 7);
+INSERT INTO candy VALUES (15, "Red Hot", 1.75, "holiday", 6);
+
+
+/* Display the Databse */
+SELECT * FROM candy;
+
+/* Display the candy name, the cost, and the rating of the candy ordered by cost */
+SELECT name, cost, rating FROM candy ORDER BY cost;
+
+/* Display the name, category, and rating of the candy ordered by category */
+SELECT name, category, rating FROM candy ORDER BY category;
+
+/* What is the average rating of the candy in each category? */
+SELECT AVG(rating), category FROM candy GROUP BY category;
+
+/* What are the 5 top rated candies? */
+SELECT name, category, rating FROM candy ORDER BY rating DESC LIMIT 5;
+
+
